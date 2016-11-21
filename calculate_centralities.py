@@ -28,7 +28,7 @@ with open("collab_graph_weighted.txt") as f:
             node1 = line.split(' ')[1].split('\t')[0]
             weight = line.split('\t')[1]
             collab_graph.add_edge(int(node0), int(node1), weight=int(weight))
-
+"""
 # Calculate and output the centralities
 degree_centrality = nx.degree_centrality(collab_graph)
 output_centralities(degree_centrality, 'Degree_Centrality')
@@ -44,3 +44,6 @@ output_centralities(betweenness_centrality, "Betweenness_Centrality")
 
 katz_centrality = nx.katz_centrality(collab_graph, alpha=0.005)
 output_centralities(katz_centrality, "Katz_Centrality")
+"""
+communicability_centrality = nx.communicability_centrality(collab_graph)
+output_centralities(communicability_centrality, "Communicability_Centrality")
