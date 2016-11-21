@@ -44,3 +44,6 @@ output_centralities(unnormalised_closeness_centrality, "Closeness_Centrality_Unn
 max_connected_component = max(nx.connected_component_subgraphs(collab_graph), key=len)
 unnormalised_closeness_centrality = nx.closeness_centrality(collab_graph)
 output_centralities(unnormalised_closeness_centrality, "Closeness_Centrality_Of_Largest_Connected_Component_Only")
+
+betweenness_centrality = nx.betweenness_centrality(collab_graph,endpoints=True)
+output_centralities(betweenness_centrality, "Betweenness_Centrality")
