@@ -20,6 +20,14 @@ def output_centralities(centralities, centrality_type):
 
 # Load the graph
 collab_graph = nx.Graph()
+with open("author_productivity.txt") as f:
+    details = f.read().split('\n')
+    for line in details:
+        if len(line) > 0 and line[0] != '#':
+            node = line.split(' ')[0]
+            productivity = line.split(' ')[1]
+            collab_graph.add_node(int(node), productivity=int(productivity))
+
 with open("collab_graph_weighted.txt") as f:
     details = f.read().split('\n')
     for line in details:
@@ -28,7 +36,7 @@ with open("collab_graph_weighted.txt") as f:
             node1 = line.split(' ')[1].split('\t')[0]
             weight = line.split('\t')[1]
             collab_graph.add_edge(int(node0), int(node1), weight=int(weight))
-"""
+
 # Calculate and output the centralities
 degree_centrality = nx.degree_centrality(collab_graph)
 output_centralities(degree_centrality, 'Degree_Centrality')
@@ -39,11 +47,11 @@ output_centralities(degree_centrality_weighted, 'Weighted_Degree_Centrality')
 normalised_closeness_centrality = nx.closeness_centrality(collab_graph)
 output_centralities(normalised_closeness_centrality, "Closeness_Centrality")
 
-betweenness_centrality = nx.betweenness_centrality(collab_graph)
+betweenness_centrality = nx.betweenness_centrality(collab_graph, endpoints=True)
 output_centralities(betweenness_centrality, "Betweenness_Centrality")
 
 katz_centrality = nx.katz_centrality(collab_graph, alpha=0.005)
 output_centralities(katz_centrality, "Katz_Centrality")
-"""
+
 communicability_centrality = nx.communicability_centrality(collab_graph)
 output_centralities(communicability_centrality, "Communicability_Centrality")
