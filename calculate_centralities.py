@@ -39,5 +39,8 @@ output_centralities(degree_centrality_weighted, 'Weighted_Degree_Centrality')
 normalised_closeness_centrality = nx.closeness_centrality(collab_graph)
 output_centralities(normalised_closeness_centrality, "Closeness_Centrality")
 
-betweenness_centrality = nx.betweenness_centrality(collab_graph,endpoints=True)
+betweenness_centrality = nx.betweenness_centrality(collab_graph)
 output_centralities(betweenness_centrality, "Betweenness_Centrality")
+
+katz_centrality = nx.katz_centrality(collab_graph, alpha=0.005)
+output_centralities(katz_centrality, "Katz_Centrality")
