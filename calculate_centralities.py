@@ -35,3 +35,12 @@ output_centralities(degree_centrality, 'Degree_Centrality')
 
 degree_centrality_weighted = weighted_degree_centrality(collab_graph)
 output_centralities(degree_centrality_weighted, 'Weighted_Degree_Centrality')
+
+normalised_closeness_centrality = nx.closeness_centrality(collab_graph)
+output_centralities(normalised_closeness_centrality, "Closeness_Centrality_Normalised")
+unnormalised_closeness_centrality = nx.closeness_centrality(collab_graph, normalized=False)
+output_centralities(unnormalised_closeness_centrality, "Closeness_Centrality_Unnormalised")
+
+max_connected_component = max(nx.connected_component_subgraphs(collab_graph), key=len)
+unnormalised_closeness_centrality = nx.closeness_centrality(collab_graph)
+output_centralities(unnormalised_closeness_centrality, "Closeness_Centrality_Of_Largest_Connected_Component_Only")
