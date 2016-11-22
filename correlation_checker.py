@@ -4,13 +4,13 @@ import pylab
 from scipy import stats
 from prettytable import PrettyTable
 
-plt.xkcd()
+#plt.xkcd()
 
 
 centralities = {'Betweenness_Centrality': 0, 'Closeness_Centrality': 0, 'Communicability_Centrality': 0,
                 'Degree_Centrality': 0, 'Katz_Centrality': 0, 'Weighted_Degree_Centrality': 0}
 
-productivities = {'author_productivity.txt': 0, 'author_citation_sums': 0, 'author_citation_max': 0}
+productivities = {'author_productivity.txt': 0, 'author_citation_sums': 0, 'author_citation_max': 0, 'author_citation_avg': 0}
 
 for centrality in centralities.keys():
     with open("Centralities/"+centrality) as f:
@@ -66,7 +66,7 @@ for centrality, c_values in centralities.items():
 
         #plt.show()
 
-        #pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
+        pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
 
 # print main correlations
