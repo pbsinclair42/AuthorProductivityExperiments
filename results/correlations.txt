@@ -1,0 +1,28 @@
++----------------------------+----------------------+---------------------------------+--------------------+
+|     Centrality Metric      | Productivity Metric  | Pearson Correlation Coefficient |    Probability     |
++----------------------------+----------------------+---------------------------------+--------------------+
+| Weighted_Degree_Centrality |   raw_productivity   |          0.912595090429         |        0.0         |
+|     Degree_Centrality      |   raw_productivity   |          0.860066826908         |        0.0         |
+| Weighted_Degree_Centrality | author_citation_sums |          0.851396188863         |        0.0         |
+|     Degree_Centrality      | author_citation_sums |          0.813173778913         |        0.0         |
+|   Betweenness_Centrality   |   raw_productivity   |          0.771127943051         |        0.0         |
+|   Betweenness_Centrality   | author_citation_sums |          0.710573017707         |        0.0         |
+|      Katz_Centrality       |   raw_productivity   |          0.704123736589         |        0.0         |
+|      Katz_Centrality       | author_citation_sums |          0.655451508193         |        0.0         |
+| Communicability_Centrality | author_citation_sums |          0.511017945635         |        0.0         |
+| Communicability_Centrality |   raw_productivity   |          0.495766167409         |        0.0         |
+|     Degree_Centrality      | author_citation_max  |          0.464607344088         |        0.0         |
+| Weighted_Degree_Centrality | author_citation_max  |          0.454636813425         |        0.0         |
+|    Closeness_Centrality    |   raw_productivity   |          0.368037913855         | 3.31671632811e-293 |
+|    Closeness_Centrality    | author_citation_sums |          0.361231628555         | 9.29321401546e-282 |
+|   Betweenness_Centrality   | author_citation_max  |          0.353172726974         | 1.46212435523e-268 |
+|      Katz_Centrality       | author_citation_max  |          0.307481405952         | 9.47546642144e-201 |
+|    Closeness_Centrality    | author_citation_max  |          0.293187036763         | 7.18143367377e-182 |
+| Communicability_Centrality | author_citation_max  |          0.232776011897         | 1.72677896188e-113 |
+|    Closeness_Centrality    | author_citation_avg  |          0.126003526961         | 6.87320033131e-34  |
+|     Degree_Centrality      | author_citation_avg  |         0.0704564609969         | 1.31564195941e-11  |
+| Weighted_Degree_Centrality | author_citation_avg  |         0.0609203935737         | 4.93978020898e-09  |
+|      Katz_Centrality       | author_citation_avg  |          0.03950698558          | 0.000149941784449  |
+|   Betweenness_Centrality   | author_citation_avg  |         0.0365998628246         |  0.00044475086341  |
+| Communicability_Centrality | author_citation_avg  |         0.0349433056956         | 0.000799576765026  |
++----------------------------+----------------------+---------------------------------+--------------------+

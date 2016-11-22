@@ -17,10 +17,10 @@
 |    Closeness_Centrality    |      Katz_Centrality       |          0.257738571763         | 1.43136143524e-139 |
 |    Closeness_Centrality    | Communicability_Centrality |          0.150235911811         | 1.32935540722e-47  |
 |            ---             |            ---             |               ---               |        ---         |
-|  author_productivity.txt   |    author_citation_sums    |          0.931960144338         |        0.0         |
+|      raw_productivity      |    author_citation_sums    |          0.931960144338         |        0.0         |
 |    author_citation_max     |    author_citation_sums    |          0.68019466947          |        0.0         |
 |    author_citation_max     |    author_citation_avg     |          0.626679581864         |        0.0         |
-|  author_productivity.txt   |    author_citation_max     |          0.502670412207         |        0.0         |
+|      raw_productivity      |    author_citation_max     |          0.502670412207         |        0.0         |
 |    author_citation_avg     |    author_citation_sums    |          0.241550267679         | 8.52257871738e-126 |
-|  author_productivity.txt   |    author_citation_avg     |         0.0594410777517         | 1.15053089986e-08  |
+|      raw_productivity      |    author_citation_avg     |         0.0594410777517         | 1.15053089986e-08  |
 +----------------------------+----------------------------+---------------------------------+--------------------+

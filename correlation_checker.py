@@ -10,7 +10,7 @@ from prettytable import PrettyTable
 centralities = {'Betweenness_Centrality': 0, 'Closeness_Centrality': 0, 'Communicability_Centrality': 0,
                 'Degree_Centrality': 0, 'Katz_Centrality': 0, 'Weighted_Degree_Centrality': 0}
 
-productivities = {'author_productivity.txt': 0, 'author_citation_sums': 0, 'author_citation_max': 0, 'author_citation_avg': 0}
+productivities = {'raw_productivity': 0, 'author_citation_sums': 0, 'author_citation_max': 0, 'author_citation_avg': 0}
 
 for centrality in centralities.keys():
     with open("Centralities/"+centrality) as f:
@@ -19,30 +19,25 @@ for centrality in centralities.keys():
         values = {int(line.split(' ')[0]): float(line.split(' ')[1]) for line in lines}
         centralities[centrality] = values
 
-print
-print "Top 10 most central nodes in each metric"
-print "****************************************"
-for centrality, values in centralities.items():
-    print centrality
-    print sorted(values, key=values.get, reverse=True)[:20]
-print
-
-
 for productivity in productivities.keys():
-    with open(productivity) as f:
+    with open('citation_data/'+str(productivity)) as f:
         lines = f.read().split('\n')
         lines = filter(lambda line: len(line) > 0 and line[0] != '#', lines)
         values = {int(line.split('\t')[0]): float(line.split('\t')[1]) for line in lines}
         productivities[productivity] = values
 
-
-print
-print "Top 10 most productive nodes in each metric"
-print "****************************************"
-for productivity, values in productivities.items():
-    print productivity
-    print sorted(values, key=values.get, reverse=True)[:20]
-print
+with open('results/top10.txt', 'w') as f:
+    f.write("Top 10 most central nodes in each metric\n")
+    f.write("****************************************\n")
+    for centrality, values in centralities.items():
+        f.write(str(centrality)+'\n')
+        f.write(str(sorted(values, key=values.get, reverse=True)[:20])+'\n\n')
+    f.write('\n\n')
+    f.write("Top 10 most productive nodes in each metric\n")
+    f.write("****************************************\n")
+    for productivity, values in productivities.items():
+        f.write(str(productivity)+'\n')
+        f.write(str(sorted(values, key=values.get, reverse=True)[:20])+'\n\n')
 
 pearsons = {}
 
@@ -66,7 +61,7 @@ for centrality, c_values in centralities.items():
 
         #plt.show()
 
-        pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
+        pylab.savefig('results/graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
 
 # print main correlations
@@ -74,7 +69,7 @@ table = PrettyTable()
 table.field_names = ["Centrality Metric", "Productivity Metric", "Pearson Correlation Coefficient", "Probability"]
 for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
     table.add_row([centrality, productivity, pearson, probability])
-with open('correlations.txt', 'w') as f:
+with open('results/correlations.txt', 'w') as f:
     f.writelines(table.get_string())
 print(table)
 
@@ -107,6 +102,6 @@ for productivity0, p_values0 in productivities.items():
 # output correlations between metrics
 for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
     table.add_row([centrality, productivity, pearson, probability])
-with open('metric_correlations.txt', 'w') as f:
+with open('results/metric_correlations.txt', 'w') as f:
     f.writelines(table.get_string())
 print(table)
