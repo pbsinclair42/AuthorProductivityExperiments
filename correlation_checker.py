@@ -1,11 +1,10 @@
 import networkx as nx
 from matplotlib import pyplot as plt
 import pylab
+from scipy import stats
 
 plt.xkcd()
 
-# Load the graph
-collab_graph = nx.Graph()
 
 centralities = {'Betweenness_Centrality': 0, 'Closeness_Centrality': 0, 'Communicability_Centrality': 0,
                 'Degree_Centrality': 0, 'Katz_Centrality': 0, 'Weighted_Degree_Centrality': 0}
@@ -48,8 +47,22 @@ print
 for centrality, c_values in centralities.items():
     for productivity, p_values in productivities.items():
         points = [(j, p_values[i]) for (i,j) in c_values.items()]
-        plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
+
+        fig = plt.figure()
         plt.suptitle(centrality+' '+productivity, fontsize=14, fontweight='bold')
+
+        ax = fig.add_subplot(111)
+        fig.subplots_adjust(top=0.85)
+
+        ax.set_xlabel('Centrality')
+        ax.set_ylabel('Productivity')
+
+        pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
+        ax.set_title(pearson_coefficient)
+
+        plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
+
         #plt.show()
+
         pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
