@@ -50,4 +50,6 @@ for centrality, c_values in centralities.items():
         points = [(j, p_values[i]) for (i,j) in c_values.items()]
         plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
         plt.suptitle(centrality+' '+productivity, fontsize=14, fontweight='bold')
-        plt.show()
+        #plt.show()
+        pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
+        pylab.clf()
