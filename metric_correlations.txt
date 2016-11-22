@@ -1,0 +1,23 @@
++----------------------------+----------------------------+---------------------------------+--------------------+
+|          Metric 1          |          Metric 2          | Pearson Correlation Coefficient |    Probability     |
++----------------------------+----------------------------+---------------------------------+--------------------+
+| Weighted_Degree_Centrality |     Degree_Centrality      |          0.90788466732          |        0.0         |
+|   Betweenness_Centrality   |     Degree_Centrality      |          0.842874799806         |        0.0         |
+| Weighted_Degree_Centrality |      Katz_Centrality       |          0.819145606814         |        0.0         |
+| Weighted_Degree_Centrality |   Betweenness_Centrality   |          0.763733698879         |        0.0         |
+|      Katz_Centrality       |     Degree_Centrality      |          0.636077985926         |        0.0         |
+|     Degree_Centrality      | Communicability_Centrality |          0.554297479914         |        0.0         |
+|      Katz_Centrality       |   Betweenness_Centrality   |          0.536804288326         |        0.0         |
+| Weighted_Degree_Centrality | Communicability_Centrality |          0.481474442168         |        0.0         |
+|    Closeness_Centrality    |     Degree_Centrality      |          0.478028098183         |        0.0         |
+|   Betweenness_Centrality   | Communicability_Centrality |          0.443036392398         |        0.0         |
+|    Closeness_Centrality    | Weighted_Degree_Centrality |          0.396430180187         |        0.0         |
+|      Katz_Centrality       | Communicability_Centrality |          0.386949960199         |        0.0         |
+|    Closeness_Centrality    |   Betweenness_Centrality   |          0.363831915585         | 4.2428084684e-286  |
+|    Closeness_Centrality    |      Katz_Centrality       |          0.257738571763         | 1.43136143524e-139 |
+|    Closeness_Centrality    | Communicability_Centrality |          0.150235911811         | 1.32935540722e-47  |
+|            ---             |            ---             |               ---               |        ---         |
+|    author_citation_max     |    author_citation_sums    |          0.680350966034         |        0.0         |
+|  author_productivity.txt   |    author_citation_sums    |         0.0293365543448         |  0.00488230015928  |
+|  author_productivity.txt   |    author_citation_max     |         0.0280517665767         |  0.00711571231655  |
++----------------------------+----------------------------+---------------------------------+--------------------+

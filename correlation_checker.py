@@ -69,11 +69,44 @@ for centrality, c_values in centralities.items():
         #pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
 
+# print main correlations
 table = PrettyTable()
 table.field_names = ["Centrality Metric", "Productivity Metric", "Pearson Correlation Coefficient", "Probability"]
 for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
     table.add_row([centrality, productivity, pearson, probability])
-
 with open('correlations.txt', 'w') as f:
+    f.writelines(table.get_string())
+print(table)
+
+# calculate correlations between centrality metrics
+pearsons = {}
+checked=[]
+for centrality0, c_values0 in centralities.items():
+    checked.append(centrality0)
+    for centrality1, c_values1 in [c for c in centralities.items() if c[0] not in checked]:
+        points = [(j, c_values1[i]) for (i,j) in c_values0.items()]
+        pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
+        pearsons[(centrality0, centrality1)] = pearson_coefficient
+
+table = PrettyTable()
+table.field_names = ["Metric 1", "Metric 2", "Pearson Correlation Coefficient", "Probability"]
+for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
+    table.add_row([centrality, productivity, pearson, probability])
+table.add_row(['---']*4)
+
+# calculate correlations between productivity metrics
+pearsons = {}
+checked=[]
+for productivity0, p_values0 in productivities.items():
+    checked.append(productivity0)
+    for productivity1, p_values1 in [c for c in productivities.items() if c[0] not in checked]:
+        points = [(j, p_values1[i]) for (i,j) in p_values0.items()]
+        pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
+        pearsons[(productivity0, productivity1)] = pearson_coefficient
+
+# output correlations between metrics
+for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
+    table.add_row([centrality, productivity, pearson, probability])
+with open('metric_correlations.txt', 'w') as f:
     f.writelines(table.get_string())
 print(table)
