@@ -1,0 +1,22 @@
++----------------------------+-------------------------+---------------------------------+--------------------+
+|     Centrality Metric      |   Productivity Metric   | Pearson Correlation Coefficient |    Probability     |
++----------------------------+-------------------------+---------------------------------+--------------------+
+| Weighted_Degree_Centrality | author_productivity.txt |          0.912595090429         |        0.0         |
+|     Degree_Centrality      | author_productivity.txt |          0.860066826908         |        0.0         |
+|   Betweenness_Centrality   | author_productivity.txt |          0.771127943051         |        0.0         |
+|      Katz_Centrality       | author_productivity.txt |          0.704123736589         |        0.0         |
+| Communicability_Centrality | author_productivity.txt |          0.495766167409         |        0.0         |
+|    Closeness_Centrality    | author_productivity.txt |          0.368037913855         | 3.31671632811e-293 |
+|    Closeness_Centrality    |   author_citation_sums  |         0.0288504416721         |  0.00563947285944  |
+|     Degree_Centrality      |   author_citation_sums  |          0.02802791028          |  0.00716470774047  |
+| Weighted_Degree_Centrality |   author_citation_sums  |         0.0262266041359         |  0.0118626047438   |
+|    Closeness_Centrality    |   author_citation_max   |          0.026189413997         |  0.0119832887521   |
+|     Degree_Centrality      |   author_citation_max   |         0.0249622933557         |  0.0166263773363   |
+| Weighted_Degree_Centrality |   author_citation_max   |         0.0213256623452         |  0.0407676803059   |
+|   Betweenness_Centrality   |   author_citation_max   |         0.0165588820084         |   0.112170939174   |
+|   Betweenness_Centrality   |   author_citation_sums  |         0.0140055478787         |   0.179097066298   |
+|      Katz_Centrality       |   author_citation_sums  |         0.00905549479988        |   0.385032490174   |
+|      Katz_Centrality       |   author_citation_max   |         0.00708808726018        |   0.496549159338   |
+| Communicability_Centrality |   author_citation_max   |        -0.000628007239327       |   0.951963488887   |
+| Communicability_Centrality |   author_citation_sums  |        -0.00204649197554        |   0.844368456997   |
++----------------------------+-------------------------+---------------------------------+--------------------+

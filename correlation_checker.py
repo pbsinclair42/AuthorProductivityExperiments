@@ -2,6 +2,7 @@ import networkx as nx
 from matplotlib import pyplot as plt
 import pylab
 from scipy import stats
+from prettytable import PrettyTable
 
 plt.xkcd()
 
@@ -43,6 +44,7 @@ for productivity, values in productivities.items():
     print sorted(values, key=values.get, reverse=True)[:20]
 print
 
+pearsons = {}
 
 for centrality, c_values in centralities.items():
     for productivity, p_values in productivities.items():
@@ -50,19 +52,28 @@ for centrality, c_values in centralities.items():
 
         fig = plt.figure()
         plt.suptitle(centrality+' '+productivity, fontsize=14, fontweight='bold')
-
         ax = fig.add_subplot(111)
         fig.subplots_adjust(top=0.85)
-
         ax.set_xlabel('Centrality')
         ax.set_ylabel('Productivity')
 
         pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
-        ax.set_title(pearson_coefficient)
+        pearsons[(centrality, productivity)] = pearson_coefficient
+        ax.set_title("Pearson Coefficient: "+str(pearson_coefficient[0])+'\nProbability: '+str(pearson_coefficient[1]),
+            fontdict = {'fontsize': 12})
 
         plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
 
         #plt.show()
 
-        pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
+        #pylab.savefig('graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
+
+table = PrettyTable()
+table.field_names = ["Centrality Metric", "Productivity Metric", "Pearson Correlation Coefficient", "Probability"]
+for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
+    table.add_row([centrality, productivity, pearson, probability])
+
+with open('correlations.txt', 'w') as f:
+    f.writelines(table.get_string())
+print(table)
