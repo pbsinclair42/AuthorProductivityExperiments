@@ -11,7 +11,7 @@ def weighted_degree_centrality(graph):
         results[node] = degree
     return results
 
-
+# print to file
 def output_centralities(centralities, centrality_type):
     with open('Centralities/'+centrality_type, 'w') as f:
         f.write('# Node '+centrality_type+'\n\n')
@@ -20,7 +20,7 @@ def output_centralities(centralities, centrality_type):
 
 # Load the graph
 collab_graph = nx.Graph()
-with open("author_productivity.txt") as f:
+with open("productivity_data/raw_productivity") as f:
     details = f.read().split('\n')
     for line in details:
         if len(line) > 0 and line[0] != '#':

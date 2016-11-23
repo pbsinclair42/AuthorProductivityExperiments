@@ -4,14 +4,13 @@ import pylab
 from scipy import stats
 from prettytable import PrettyTable
 
-#plt.xkcd()
-
 
 centralities = {'Betweenness_Centrality': 0, 'Closeness_Centrality': 0, 'Communicability_Centrality': 0,
                 'Degree_Centrality': 0, 'Katz_Centrality': 0, 'Weighted_Degree_Centrality': 0}
 
 productivities = {'raw_productivity': 0, 'author_citation_sums': 0, 'author_citation_max': 0, 'author_citation_avg': 0}
 
+# load centralities
 for centrality in centralities.keys():
     with open("Centralities/"+centrality) as f:
         lines = f.read().split('\n')
@@ -19,6 +18,7 @@ for centrality in centralities.keys():
         values = {int(line.split(' ')[0]): float(line.split(' ')[1]) for line in lines}
         centralities[centrality] = values
 
+# load productivities
 for productivity in productivities.keys():
     with open('/productivity_data/'+str(productivity)) as f:
         lines = f.read().split('\n')
@@ -26,6 +26,7 @@ for productivity in productivities.keys():
         values = {int(line.split('\t')[0]): float(line.split('\t')[1]) for line in lines}
         productivities[productivity] = values
 
+# output the top 10 nodes in each metric
 with open('results/top10.txt', 'w') as f:
     f.write("Top 10 most central nodes in each metric\n")
     f.write("****************************************\n")
@@ -39,8 +40,9 @@ with open('results/top10.txt', 'w') as f:
         f.write(str(productivity)+'\n')
         f.write(str(sorted(values, key=values.get, reverse=True)[:20])+'\n\n')
 
+# Graph each of the centrality metrics against each of the productivity metrics
+# and calculate their correlation
 pearsons = {}
-
 for centrality, c_values in centralities.items():
     for productivity, p_values in productivities.items():
         points = [(j, p_values[i]) for (i,j) in c_values.items()]
@@ -56,15 +58,12 @@ for centrality, c_values in centralities.items():
         pearsons[(centrality, productivity)] = pearson_coefficient
         ax.set_title("Pearson Coefficient: "+str(pearson_coefficient[0])+'\nProbability: '+str(pearson_coefficient[1]),
             fontdict = {'fontsize': 12})
-
         plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
-
-        #plt.show()
 
         pylab.savefig('results/graphs/'+centrality+'-'+productivity+'.png')
         pylab.clf()
 
-# print main correlations
+# output correlations
 table = PrettyTable()
 table.field_names = ["Centrality Metric", "Productivity Metric", "Pearson Correlation Coefficient", "Probability"]
 for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
@@ -99,7 +98,7 @@ for productivity0, p_values0 in productivities.items():
         pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
         pearsons[(productivity0, productivity1)] = pearson_coefficient
 
-# output correlations between metrics
+# output correlations between the same types of metrics
 for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1], reverse=True):
     table.add_row([centrality, productivity, pearson, probability])
 with open('results/metric_correlations.txt', 'w') as f:
