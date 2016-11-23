@@ -72,6 +72,47 @@ with open('results/correlations.txt', 'w') as f:
     f.writelines(table.get_string())
 print(table)
 
+# load Erdos distances
+with open("Centralities/Distance_From_Erdos") as f:
+    lines = f.read().split('\n')
+    lines = filter(lambda line: len(line) > 0 and line[0] != '#', lines)
+    distances = {}
+    for line in lines:
+        try:
+            distances[int(line.split(' ')[0])] = float(line.split(' ')[1])
+        except ValueError:
+            pass
+
+pearsons = {}
+# calculate correlations between Erdos distance and productivities
+for productivity, p_values in productivities.items():
+    points = [(j, p_values[i]) for (i,j) in distances.items()]
+
+    fig = plt.figure()
+    plt.suptitle('Distance From Erdos '+productivity, fontsize=14, fontweight='bold')
+    ax = fig.add_subplot(111)
+    fig.subplots_adjust(top=0.85)
+    ax.set_xlabel('Distance')
+    ax.set_ylabel('Productivity')
+    
+    pearson_coefficient = stats.pearsonr(map(lambda x: x[0], points), map(lambda x: x[1], points))
+    pearsons[productivity] = pearson_coefficient
+    ax.set_title("Pearson Coefficient: "+str(pearson_coefficient[0])+'\nProbability: '+str(pearson_coefficient[1]),
+        fontdict = {'fontsize': 12})
+    plt.scatter(map(lambda x: x[0], points), map(lambda x: x[1], points))
+
+    pylab.savefig('results/graphs/Distance_From_Erdos-'+productivity+'.png')
+    pylab.clf()
+# output correlations
+table = PrettyTable()
+table.field_names = ["Productivity Metric", "Pearson Correlation Coefficient", "Probability"]
+for (productivity, (pearson, probability)) in sorted(pearsons.items(), key=lambda x:x[1]):
+    table.add_row([productivity, pearson, probability])
+with open('results/erdos_correlations.txt', 'w') as f:
+    f.writelines(table.get_string())
+print(table)
+
+
 # calculate correlations between centrality metrics
 pearsons = {}
 checked=[]
@@ -104,3 +145,4 @@ for ((centrality, productivity), (pearson, probability)) in sorted(pearsons.item
 with open('results/metric_correlations.txt', 'w') as f:
     f.writelines(table.get_string())
 print(table)
+

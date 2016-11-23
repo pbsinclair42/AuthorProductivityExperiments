@@ -17,6 +17,15 @@ def output_centralities(centralities, centrality_type):
         f.write('# Node '+centrality_type+'\n\n')
         f.writelines([str(node)+' '+str(centrality)+'\n' for (node, centrality) in centralities.items()])
 
+def distance_from_erdos(graph, erdos):
+    results = {}
+    for node in graph:
+        try:
+            distance = nx.shortest_path_length(graph, source=node, target=erdos)
+        except nx.NetworkXNoPath:
+            distance = None
+        results[node] = distance
+    return results
 
 # Load the graph
 collab_graph = nx.Graph()
@@ -24,8 +33,8 @@ with open("productivity_data/raw_productivity") as f:
     details = f.read().split('\n')
     for line in details:
         if len(line) > 0 and line[0] != '#':
-            node = line.split(' ')[0]
-            productivity = line.split(' ')[1]
+            node = line.split('\t')[0]
+            productivity = line.split('\t')[1]
             collab_graph.add_node(int(node), productivity=int(productivity))
 
 with open("collab_graph_weighted.txt") as f:
@@ -36,6 +45,10 @@ with open("collab_graph_weighted.txt") as f:
             node1 = line.split(' ')[1].split('\t')[0]
             weight = line.split('\t')[1]
             collab_graph.add_edge(int(node0), int(node1), weight=int(weight))
+
+distances = distance_from_erdos(collab_graph, 1095)
+output_centralities(distances, 'Distance_From_Erdos')
+exit()
 
 # Calculate and output the centralities
 degree_centrality = nx.degree_centrality(collab_graph)
