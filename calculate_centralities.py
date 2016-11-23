@@ -48,7 +48,6 @@ with open("collab_graph_weighted.txt") as f:
 
 distances = distance_from_erdos(collab_graph, 1095)
 output_centralities(distances, 'Distance_From_Erdos')
-exit()
 
 # Calculate and output the centralities
 degree_centrality = nx.degree_centrality(collab_graph)
