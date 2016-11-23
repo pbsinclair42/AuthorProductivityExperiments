@@ -20,7 +20,7 @@ for centrality in centralities.keys():
 
 # load productivities
 for productivity in productivities.keys():
-    with open('/productivity_data/'+str(productivity)) as f:
+    with open('productivity_data/'+str(productivity)) as f:
         lines = f.read().split('\n')
         lines = filter(lambda line: len(line) > 0 and line[0] != '#', lines)
         values = {int(line.split('\t')[0]): float(line.split('\t')[1]) for line in lines}
